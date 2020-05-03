@@ -34,7 +34,7 @@ DRAW_FILTERED  = true;
 DRAW_FABS      = false;
 DRAW_ALIGN     = true;
 DRAW_DETECTORS = false;
-DRAW_BITS      = true;
+DRAW_BITS      = false;
 DRAW_RESULT    = false;
 
 DRAW_SOURCE    = true;
@@ -42,14 +42,14 @@ DRAW_FILTER50  = true;
 DRAW_FREQ1     = true;
 DRAW_FREQ2     = true;
 
-% if DRAW_SOURCE
+if DRAW_SOURCE
     fileFd = fopen(PATH+ORIG_FILE);
     if (-1 ~= fileFd)
         rawOrig=fread(fileFd, 'double');
         fclose(fileFd);
         ORIG_READED=true;
     end
-% end
+end
 
 fs=58000;
 td=1/fs;
@@ -173,6 +173,7 @@ if DRAW_SOURCE && ORIG_READED
     subplot(graphs,1,num);
     rawOrig = rawOrig';
     plot(rawOrig);
+    ylim([min(rawOrig) max(rawOrig)]);
     xlabel('time, ms');
     ylabel('original signal');
     num = num + 1;
@@ -181,6 +182,7 @@ if DRAW_FILTER50 && FILTER50_READED
     subplot(graphs,1,num);
     rawFilter50 = rawFilter50';
     plot(rawFilter50);
+    ylim([min(rawFilter50) max(rawFilter50)]);
     xlabel('time, ms');
     ylabel('50 Hz filtered');
     num = num + 1;
@@ -189,6 +191,7 @@ if DRAW_FILTERED && DRAW_FREQ1 && FILTER_FREQ1_READED
     subplot(graphs,1,num);
     rawFilter200 = rawFilter200';
     plot(rawFilter200);
+    ylim([min(rawFilter200) max(rawFilter200)]);
     xlabel('time, ms');
     ylabel('freq1 signal');
     num = num + 1;
@@ -197,6 +200,7 @@ if DRAW_FABS && DRAW_FREQ1 && FABS_FREQ1_READED
     subplot(graphs,1,num);
     rawFabs200 = rawFabs200';
     plot(rawFabs200);
+    ylim([0 max(rawFabs200)]);
     xlabel('time, ms');
     ylabel('freq1 absed');
     num = num + 1;
@@ -205,7 +209,7 @@ if DRAW_ALIGN && DRAW_FREQ1 && ALIGN_FREQ1_READED
     subplot(graphs,1,num);
     rawFilterAlign200 = rawFilterAlign200';
     plot(rawFilterAlign200);
-    ylim([0 max(rawFilterAlign200)]);
+    ylim([min(rawFilterAlign200) max(rawFilterAlign200)]);
     xlabel('time, ms');
     ylabel('freq1 aligned');
     num = num + 1;
@@ -223,7 +227,7 @@ if DRAW_FILTERED && DRAW_FREQ2 && FILTER_FREQ2_READED
     subplot(graphs,1,num);
     rawFilter400 = rawFilter400';
     plot(rawFilter400);
-    ylim([-1.5 1.5 ]);
+    ylim([min(rawFilter400) max(rawFilter400)]);
     xlabel('time, ms');
     ylabel('freq2 signal');
     num = num + 1;
@@ -232,6 +236,7 @@ if DRAW_FABS && DRAW_FREQ2 && FABS_FREQ2_READED
     subplot(graphs,1,num);
     rawFabs400 = rawFabs400';
     plot(rawFabs400);
+    ylim([0 max(rawFabs400)]);
     xlabel('time, ms');
     ylabel('freq2 absed');
     num = num + 1;
