@@ -1,32 +1,32 @@
-ORIG_READED           = false;
-FILTER50_READED       = false;
-FILTER_FREQ1_READED   = false;
-FILTER_FREQ2_READED   = false;
-FABS_FREQ1_READED     = false;
-FABS_FREQ2_READED     = false;
-ALIGN_FREQ1_READED    = false;
-ALIGN_FREQ2_READED    = false;
-DETECTOR_FREQ1_READED = false;
-DETECTOR_FREQ2_READED = false;
-BITS_FREQ1_READED     = false;
-BITS_FREQ2_READED     = false;
-BITS_RESULT_READED    = false;
+ORIG_READED               = false;
+FILTER50_READED           = false;
+FILTER_FREQ_LOW_READED    = false;
+FILTER_FREQ_HIGH_READED   = false;
+FABS_FREQ_LOW_READED      = false;
+FABS_FREQ_HIGH_READED     = false;
+ALIGN_FREQ_LOW_READED     = false;
+ALIGN_FREQ_HIGH_READED    = false;
+DETECTOR_FREQ_LOW_READED  = false;
+DETECTOR_FREQ_HIGH_READED = false;
+BITS_FREQ_LOW_READED      = false;
+BITS_FREQ_HIGH_READED     = false;
+BITS_RESULT_READED        = false;
 
 PATH = "Z:\projects\receiver\";
 
-ORIG_FILE           = "original";
-FILTER50_FILE       = "filter-50";
-FILTER_FREQ1_FILE   = "filter-200";
-FILTER_FREQ2_FILE   = "filter-400";
-FABS_FREQ1_FILE     = "fabs-200";
-FABS_FREQ2_FILE     = "fabs-400";
-ALIGN_FREQ1_FILE    = "align-200";
-ALIGN_FREQ2_FILE    = "align-400";
-DETECTOR_FREQ1_FILE = "detector-200";
-DETECTOR_FREQ2_FILE = "detector-400";
-BITS_FREQ1_FILE     = "bits-200";
-BITS_FREQ2_FILE     = "bits-400";
-BITS_RESULT_FILE    = "result";
+ORIG_FILE               = "original";
+FILTER50_FILE           = "filter-50";
+FILTER_FREQ_LOW_FILE    = "filter-200";
+FILTER_FREQ_HIGH_FILE   = "filter-400";
+FABS_FREQ_LOW_FILE      = "fabs-200";
+FABS_FREQ_HIGH_FILE     = "fabs-400";
+ALIGN_FREQ_LOW_FILE     = "align-200";
+ALIGN_FREQ_HIGH_FILE    = "align-400";
+DETECTOR_FREQ_LOW_FILE  = "detector-200";
+DETECTOR_FREQ_HIGH_FILE = "detector-400";
+BITS_FREQ_LOW_FILE      = "bits-200";
+BITS_FREQ_HIGH_FILE     = "bits-400";
+BITS_RESULT_FILE        = "result";
 
 DRAW_SPEC      = false;
 DRAW_FILTER    = false;
@@ -39,8 +39,8 @@ DRAW_RESULT    = false;
 
 DRAW_SOURCE    = true;
 DRAW_FILTER50  = true;
-DRAW_FREQ1     = true;
-DRAW_FREQ2     = true;
+DRAW_FREQ_LOW  = true;
+DRAW_FREQ_HIGH = true;
 
 if DRAW_SOURCE
     fileFd = fopen(PATH+ORIG_FILE);
@@ -65,84 +65,84 @@ if DRAW_FILTER50
         FILTER50_READED=true;
     end
 end
-if DRAW_FREQ1 && DRAW_FILTERED
-    fileFd = fopen(PATH+FILTER_FREQ1_FILE);
+if DRAW_FREQ_LOW && DRAW_FILTERED
+    fileFd = fopen(PATH+FILTER_FREQ_LOW_FILE);
     if (-1 ~= fileFd)
         rawFilter200=fread(fileFd, 'double');
         fclose(fileFd);
-        FILTER_FREQ1_READED=true;
+        FILTER_FREQ_LOW_READED=true;
     end
 end
-if DRAW_FREQ2 && DRAW_FILTERED
-    fileFd = fopen(PATH+FILTER_FREQ2_FILE);
+if DRAW_FREQ_HIGH && DRAW_FILTERED
+    fileFd = fopen(PATH+FILTER_FREQ_HIGH_FILE);
     if (-1 ~= fileFd)
         rawFilter400=fread(fileFd, 'double');
         fclose(fileFd);
-        FILTER_FREQ2_READED=true;
+        FILTER_FREQ_HIGH_READED=true;
     end
 end
-if DRAW_FREQ1 && DRAW_FABS
-    fileFd = fopen(PATH+FABS_FREQ1_FILE);
+if DRAW_FREQ_LOW && DRAW_FABS
+    fileFd = fopen(PATH+FABS_FREQ_LOW_FILE);
     if (-1 ~= fileFd)
         rawFabs200=fread(fileFd, 'double');
         fclose(fileFd);
-        FABS_FREQ1_READED=true;
+        FABS_FREQ_LOW_READED=true;
     end
 end
-if DRAW_FREQ2 && DRAW_FABS
-    fileFd = fopen(PATH+FABS_FREQ2_FILE);
+if DRAW_FREQ_HIGH && DRAW_FABS
+    fileFd = fopen(PATH+FABS_FREQ_HIGH_FILE);
     if (-1 ~= fileFd)
         rawFabs400=fread(fileFd, 'double');
         fclose(fileFd);
-        FABS_FREQ2_READED=true;
+        FABS_FREQ_HIGH_READED=true;
     end
 end
-if DRAW_FREQ1 && DRAW_ALIGN
-    fileFd = fopen(PATH+ALIGN_FREQ1_FILE);
+if DRAW_FREQ_LOW && DRAW_ALIGN
+    fileFd = fopen(PATH+ALIGN_FREQ_LOW_FILE);
     if (-1 ~= fileFd)
         rawFilterAlign200=fread(fileFd, 'double');
         fclose(fileFd);
-        ALIGN_FREQ1_READED=true;
+        ALIGN_FREQ_LOW_READED=true;
     end
 end
-if DRAW_FREQ2 && DRAW_ALIGN
-    fileFd = fopen(PATH+ALIGN_FREQ2_FILE);
+if DRAW_FREQ_HIGH && DRAW_ALIGN
+    fileFd = fopen(PATH+ALIGN_FREQ_HIGH_FILE);
     if (-1 ~= fileFd)
         rawFilterAlign400=fread(fileFd, 'double');
         fclose(fileFd);
-        ALIGN_FREQ2_READED=true;
+        ALIGN_FREQ_HIGH_READED=true;
     end
 end
-if DRAW_FREQ1 && DRAW_DETECTORS
-    fileFd = fopen(PATH+DETECTOR_FREQ1_FILE);
+if DRAW_FREQ_LOW && DRAW_DETECTORS
+    fileFd = fopen(PATH+DETECTOR_FREQ_LOW_FILE);
     if (-1 ~= fileFd)
         rawDataRecvFreq1=fread(fileFd, 'double');
         fclose(fileFd);
-        DETECTOR_FREQ1_READED=true;
+        DETECTOR_FREQ_LOW_READED=true;
     end
 end
-if DRAW_FREQ2 && DRAW_DETECTORS
-    fileFd = fopen(PATH+DETECTOR_FREQ2_FILE);
+if DRAW_FREQ_HIGH && DRAW_DETECTORS
+    fileFd = fopen(PATH+DETECTOR_FREQ_HIGH_FILE);
     if (-1 ~= fileFd)
         rawDataRecvFreq2=fread(fileFd, 'double');
         fclose(fileFd);
-        DETECTOR_FREQ2_READED=true;
+        DETECTOR_FREQ_HIGH_READED=true;
     end
 end
-if DRAW_FREQ1 && DRAW_BITS
-    fileFd = fopen(PATH+BITS_FREQ1_FILE);
+if DRAW_FREQ_LOW && DRAW_BITS
+    fileFd = fopen(PATH+BITS_FREQ_LOW_FILE);
     if (-1 ~= fileFd)
         bitsFreq1=fread(fileFd, 'double');
         fclose(fileFd);
-        BITS_FREQ1_READED=true;
+        BITS_FREQ_LOW_READED=true;
     end
 end
-if DRAW_FREQ2 && DRAW_BITS
-    fileFd = fopen(PATH+BITS_FREQ2_FILE);
+if DRAW_FREQ_HIGH && DRAW_BITS
+    fileFd = fopen(PATH+BITS_FREQ_HIGH_FILE);
     if (-1 ~= fileFd)
         bitsFreq2=fread(fileFd, 'double');
         fclose(fileFd);
-        BITS_FREQ2_READED=true;
+        BITS_FREQ_HIGH_READED=true;
     end
 end
 if DRAW_RESULT
@@ -157,16 +157,16 @@ figure();
 
 graphs = ORIG_READED + ...
          FILTER50_READED + ...
-         FILTER_FREQ1_READED + ...
-         FILTER_FREQ2_READED + ...
-         FABS_FREQ1_READED + ...
-         FABS_FREQ2_READED + ...
-         ALIGN_FREQ1_READED + ...
-         ALIGN_FREQ2_READED + ...
-         DETECTOR_FREQ1_READED + ...
-         DETECTOR_FREQ2_READED + ...
-         BITS_FREQ1_READED + ...
-         BITS_FREQ2_READED;
+         FILTER_FREQ_LOW_READED + ...
+         FILTER_FREQ_HIGH_READED + ...
+         FABS_FREQ_LOW_READED + ...
+         FABS_FREQ_HIGH_READED + ...
+         ALIGN_FREQ_LOW_READED + ...
+         ALIGN_FREQ_HIGH_READED + ...
+         DETECTOR_FREQ_LOW_READED + ...
+         DETECTOR_FREQ_HIGH_READED + ...
+         BITS_FREQ_LOW_READED + ...
+         BITS_FREQ_HIGH_READED;
 num=1;
 
 if DRAW_SOURCE && ORIG_READED
@@ -187,34 +187,34 @@ if DRAW_FILTER50 && FILTER50_READED
     ylabel('50 Hz filtered');
     num = num + 1;
 end
-if DRAW_FILTERED && DRAW_FREQ1 && FILTER_FREQ1_READED
+if DRAW_FILTERED && DRAW_FREQ_LOW && FILTER_FREQ_LOW_READED
     subplot(graphs,1,num);
     rawFilter200 = rawFilter200';
     plot(rawFilter200);
     ylim([min(rawFilter200) max(rawFilter200)]);
     xlabel('time, ms');
-    ylabel('freq1 signal');
+    ylabel('freqLow signal');
     num = num + 1;
 end
-if DRAW_FABS && DRAW_FREQ1 && FABS_FREQ1_READED
+if DRAW_FABS && DRAW_FREQ_LOW && FABS_FREQ_LOW_READED
     subplot(graphs,1,num);
     rawFabs200 = rawFabs200';
     plot(rawFabs200);
     ylim([0 max(rawFabs200)]);
     xlabel('time, ms');
-    ylabel('freq1 absed');
+    ylabel('freqLow absed');
     num = num + 1;
 end
-if DRAW_ALIGN && DRAW_FREQ1 && ALIGN_FREQ1_READED
+if DRAW_ALIGN && DRAW_FREQ_LOW && ALIGN_FREQ_LOW_READED
     subplot(graphs,1,num);
     rawFilterAlign200 = rawFilterAlign200';
     plot(rawFilterAlign200);
     ylim([min(rawFilterAlign200) max(rawFilterAlign200)]);
     xlabel('time, ms');
-    ylabel('freq1 aligned');
+    ylabel('freqLow aligned');
     num = num + 1;
 end
-if DRAW_DETECTORS && DRAW_FREQ1 && DETECTOR_FREQ1_READED
+if DRAW_DETECTORS && DRAW_FREQ_LOW && DETECTOR_FREQ_LOW_READED
     subplot(graphs,1,num);
     rawDataRecvFreq1 = rawDataRecvFreq1';
     plot(rawDataRecvFreq1);
@@ -223,34 +223,34 @@ if DRAW_DETECTORS && DRAW_FREQ1 && DETECTOR_FREQ1_READED
     ylabel('detector data');
     num = num + 1;
 end
-if DRAW_FILTERED && DRAW_FREQ2 && FILTER_FREQ2_READED
+if DRAW_FILTERED && DRAW_FREQ_HIGH && FILTER_FREQ_HIGH_READED
     subplot(graphs,1,num);
     rawFilter400 = rawFilter400';
     plot(rawFilter400);
     ylim([min(rawFilter400) max(rawFilter400)]);
     xlabel('time, ms');
-    ylabel('freq2 signal');
+    ylabel('freqHigh signal');
     num = num + 1;
 end
-if DRAW_FABS && DRAW_FREQ2 && FABS_FREQ2_READED
+if DRAW_FABS && DRAW_FREQ_HIGH && FABS_FREQ_HIGH_READED
     subplot(graphs,1,num);
     rawFabs400 = rawFabs400';
     plot(rawFabs400);
     ylim([0 max(rawFabs400)]);
     xlabel('time, ms');
-    ylabel('freq2 absed');
+    ylabel('freqHigh absed');
     num = num + 1;
 end
-if DRAW_ALIGN && DRAW_FREQ2 && ALIGN_FREQ2_READED
+if DRAW_ALIGN && DRAW_FREQ_HIGH && ALIGN_FREQ_HIGH_READED
     subplot(graphs,1,num);
     rawFilterAlign400 = rawFilterAlign400';
     plot(rawFilterAlign400);
     ylim([0 max(rawFilterAlign400)]);
     xlabel('time, ms');
-    ylabel('freq2 aligned');
+    ylabel('freqHigh aligned');
     num = num + 1;
 end
-if DRAW_DETECTORS && DRAW_FREQ2 && DETECTOR_FREQ2_READED
+if DRAW_DETECTORS && DRAW_FREQ_HIGH && DETECTOR_FREQ_HIGH_READED
     subplot(graphs,1,num);
     rawDataRecvFreq2 = rawDataRecvFreq2';
     plot(rawDataRecvFreq2);
@@ -259,23 +259,23 @@ if DRAW_DETECTORS && DRAW_FREQ2 && DETECTOR_FREQ2_READED
     ylabel('detector data');
     num = num + 1;
 end
-if DRAW_DETECTORS && DETECTOR_FREQ1_READED && DETECTOR_FREQ2_READED
+if DRAW_DETECTORS && DETECTOR_FREQ_LOW_READED && DETECTOR_FREQ_HIGH_READED
     figure();
     plot(t, rawDataRecvFreq1, t, -rawDataRecvFreq2+1);
     xlabel('time, ms');
     ylim([-0.5 1.5 ]);
     ylabel('detector data');
 end
-if DRAW_BITS && BITS_FREQ1_READED && BITS_FREQ2_READED
+if DRAW_BITS && BITS_FREQ_LOW_READED && BITS_FREQ_HIGH_READED
     figure();
     subplot(2,1,1);
     bar(bitsFreq1);
     ylim([-0.5 1.5 ]);
-    ylabel('detector freq1 bits');
+    ylabel('detector freqLow bits');
     subplot(2,1,2);
     bar(bitsFreq2);
     ylim([-0.5 1.5 ]);
-    ylabel('detector freq2 bits');
+    ylabel('detector freqHigh bits');
 end
 if DRAW_RESULT && BITS_RESULT_READED
     figure();
