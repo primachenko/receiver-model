@@ -4,6 +4,7 @@ fd=59000;
 td=1/fd;
 N=1024*4;
 t=0:td:N*td;
+f=fd*(0:N/2)/N;
 
 freqLow=1000;
 magLow=0.5;
@@ -22,8 +23,9 @@ NOISE_PWR=1;
 
 RANDOM_DATA=false;
 
-DRAW_SOURCE=true;
-DRAW_RESULTS=true;
+DRAW_SOURCE=false;
+DRAW_RESULTS=false;
+DRAW_FILTERS=true;
 
 % EXPORT PARAM
 PATH_TO_SOURCE_FILE = "Z:\projects\receiver\data-source";
@@ -85,6 +87,7 @@ fc=500;
 fc_n=fc/(fd/2);
 [filterB50,filterA50]=butter(4,fc_n,'high');
 signalFiltered=filter(filterB50,filterA50,signalWithNoise);
+filter50=freqz(filterB50,filterA50, N/2, fd);
 
 % select freqLow
 freqLow=1000;
@@ -92,6 +95,7 @@ freqLow_l=700/(fd/2);
 freqLow_h=1100/(fd/2);
 [filterBLow,filterALow]=butter(5,[freqLow_l freqLow_h]);
 signalFreqLow=filter(filterBLow,filterALow,signalFiltered);
+filterFreqLow=freqz(filterBLow,filterALow, N/2, fd);
 
 envelFreqLow=filter(ones([1 125]),1,abs(signalFreqLow));
 envelFreqLowNorm = envelFreqLow/max(envelFreqLow);
@@ -102,12 +106,60 @@ freqHigh_l=1300/(fd/2);
 ffreqHigh_h=2000/(fd/2);
 [filterBHigh,filterAHigh]=butter(5,[freqHigh_l ffreqHigh_h]);
 signalFreqHigh=filter(filterBHigh,filterAHigh,signalFiltered);
+filterFreqHigh=freqz(filterBHigh,filterAHigh, N/2, fd);
 
 envelFreqHigh=filter(ones([1 75]),1,abs(signalFreqHigh));
 envelFreqHighNorm = envelFreqHigh/max(envelFreqHigh);
 
 % detection
 demod = detectByComp(envelFreqLowNorm, envelFreqHighNorm, t);
+
+if DRAW_FILTERS
+    filter50Figure=figure();
+    set(filter50Figure,'color','w');
+    set(filter50Figure,'Position',[100 100 600 600]);
+    yyaxis left;
+    plot(f(1:N/2), db(abs(filter50)));
+    xlim([0 1500]);
+    ylim([-100 0]);
+    xlabel('Частота, Гц');
+    ylabel('дБ');
+    yyaxis right;
+    plot(f(1:N/2), phase(filter50)*180/pi);
+    xlim([0 1500]);
+    ylabel('град.');
+    grid on;
+
+    filterFreqLowFigure=figure();
+    set(filterFreqLowFigure,'color','w');
+    set(filterFreqLowFigure,'Position',[100 100 600 600]);
+    yyaxis left;
+    plot(f(1:N/2), db(abs(filterFreqLow)));
+    xlim([0 2500]);
+    ylim([-100 0]);
+    xlabel('Частота, Гц');
+    ylabel('дБ');
+    yyaxis right;
+    plot(f(1:N/2), phase(filterFreqLow)*180/pi);
+    xlim([0 2500]);
+    ylabel('град.');
+    grid on;
+    
+    filterFreqHighFigure=figure();
+    set(filterFreqHighFigure,'color','w');
+    set(filterFreqHighFigure,'Position',[100 100 600 600]);
+    yyaxis left;
+    plot(f(1:N/2), db(abs(filterFreqHigh)));
+    xlim([0 4000]);
+    ylim([-100 0]);
+    xlabel('Частота, Гц');
+    ylabel('дБ');
+    yyaxis right;
+    plot(f(1:N/2), phase(filterFreqHigh)*180/pi);
+    xlim([0 4000]);
+    ylabel('град.');
+    grid on;
+end
 
 if DRAW_SOURCE
     sourceFigure=figure();
